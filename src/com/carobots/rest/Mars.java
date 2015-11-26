@@ -1,6 +1,7 @@
 package com.carobots.rest;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
@@ -26,7 +27,7 @@ public class Mars {
 	@GET
 	@Path("/")
 	public Response withoutCommands() {
-		return Response.status(200).entity("Insert commands to move robot").build();
+		return Response.status(400).build();
 	}
 
 	/**
@@ -37,7 +38,7 @@ public class Mars {
 	 * @param command
 	 * @return Robot's Position
 	 */
-	@GET
+	@POST
 	@Path("/{command}")
 	public Response moveRobot(@PathParam("command") String command) {
 		final String INIT_POS = "N";
@@ -45,7 +46,7 @@ public class Mars {
 		final int INIT_Y = 0;
 		final int GROUND_X = 5;
 		final int GROUND_Y = 5;
-		String result = "No commands";
+		String result = "";
 		if (command != null) {
 			try {
 				Robot robot = new Robot(INIT_X, INIT_Y, INIT_POS.charAt(0), new Ground(GROUND_X, GROUND_Y));
@@ -63,14 +64,12 @@ public class Mars {
 					default:
 						throw new IllegalArgumentException("Invalid command");
 					}
-					result = "Actual position: " + robot.toString();
+					result = robot.toString();
 				}
 			} catch (IllegalPosition e) {
-				result = e.getLocalizedMessage();
+				return Response.status(400).build();
 			} catch (IllegalArgumentException e) {
-				result = e.getLocalizedMessage();
-			} catch (NullPointerException e) {
-				result = e.getLocalizedMessage();
+				return Response.status(400).build();
 			}
 		}
 		return Response.status(200).entity(result).build();
