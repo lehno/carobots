@@ -16,7 +16,7 @@ import com.carobots.entity.Robot;
  * @since 1.0
  */
 
-@Path("mars")
+@Path("/mars")
 public class Mars {
 
 	/**
@@ -27,7 +27,7 @@ public class Mars {
 	@GET
 	@Path("/")
 	public Response withoutCommands() {
-		return Response.status(400).build();
+		return Response.status(200).entity("ASDASD").build();
 	}
 
 	/**
@@ -72,6 +72,6 @@ public class Mars {
 				return Response.status(400).build();
 			}
 		}
-		return Response.status(200).entity(result).build();
+		return Response.status(200).entity("(" + result + ")").build();
 	}
 }

@@ -56,6 +56,6 @@ public class Position {
 	}
 
 	public String toString() {
-		return "(" + this.getX() + "," + this.getY();
+		return this.getX() + "," + this.getY();
 	}
 }

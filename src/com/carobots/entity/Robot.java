@@ -9,7 +9,6 @@ import com.carobots.direction.South;
 import com.carobots.direction.West;
 import com.carobots.rest.IllegalPosition;
 
-
 /***
  * Entity Robot and methods to move and turn the direction
  * 
@@ -32,7 +31,8 @@ public class Robot {
 	 * @param ground
 	 * @throws IllegalPosition
 	 */
-	public Robot(int x, int y, char direcao, Ground ground) throws IllegalPosition {
+	public Robot(int x, int y, char direcao, Ground ground)
+			throws IllegalPosition {
 		checkDirection(direcao);
 		this.position = new Position(x, y, ground);
 	}
@@ -83,7 +83,15 @@ public class Robot {
 	}
 
 	public String toString() {
-		return this.position + "," + this.direction + ")";
+		return this.position + "," + this.direction;
+	}
+
+	public Position getPosition() {
+		return this.position;
+	}
+	
+	public AbstractDirection getDirection() {
+		return this.direction;
 	}
 
 }
